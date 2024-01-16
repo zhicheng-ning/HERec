@@ -17,7 +17,13 @@
 
 * scipy
 
-* deepwalk (https://github.com/phanein/deepwalk)
+* deepwalk (https://github.com/phanein/deepwalk) 
+
+> pip install deepwalk 即可，注意 python 版本以及 gensim 版本
+
+# python3.9
+
+# gensim3.8.3
 
 # Reference
 

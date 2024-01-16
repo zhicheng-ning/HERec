@@ -27,15 +27,15 @@ class HNERec:
         self.item_metapathnum = len(item_metapaths)
 
         self.X, self.user_metapathdims = self.load_embedding(user_metapaths, unum)
-        print 'Load user embeddings finished.'
+        print('Load user embeddings finished.')
 
         self.Y, self.item_metapathdims = self.load_embedding(item_metapaths, inum)
-        print 'Load user embeddings finished.'
+        print('Load user embeddings finished.')
 
         self.R, self.T, self.ba = self.load_rating(trainfile, testfile)
-        print 'Load rating finished.'
-        print 'train size : ', len(self.R)
-        print 'test size : ', len(self.T) 
+        print('Load rating finished.')
+        print('train size : ', len(self.R))
+        print('test size : ', len(self.T))
 
         self.initialize();
         self.recommend();
@@ -64,7 +64,7 @@ class HNERec:
                     i = int(arr[0]) - 1
                     for j in range(k):
                         X[i][ctn][j] = float(arr[j + 1])
-                print 'metapath ', metapath, 'numbers ', n
+                print('metapath ', metapath, 'numbers ', n)
             ctn += 1
         return X, metapathdims
 
@@ -152,7 +152,7 @@ class HNERec:
     def recommend(self):
         mae = []
         rmse = []
-        starttime = time.clock()
+        starttime = time.time()
         perror = 99999
         cerror = 9999
         n = len(self.R)
@@ -208,17 +208,17 @@ class HNERec:
 
             if(abs(perror - cerror) < 0.0001):
                 break
-            print 'step ', step, 'crror : ', sqrt(cerror)
+            print('step ', step, 'crror : ', sqrt(cerror))
             train_end_time = time.time()
-            print 'train time : ', (train_end_time - train_start_time)
+            print('train time : ', (train_end_time - train_start_time))
             MAE, RMSE = self.maermse()
             mae.append(MAE)
             rmse.append(RMSE)
             #if step % 5 == 0:
-            print 'step, MAE, RMSE ', step, MAE, RMSE
+            print('step, MAE, RMSE ', step, MAE, RMSE)
             test_time = time.time()
-            print 'time: ', test_time - train_end_time
-        print 'MAE: ', min(mae), ' RMSE: ', min(rmse)
+            print('time: ', test_time - train_end_time)
+        print('MAE: ', min(mae), ' RMSE: ', min(rmse))
 
 if __name__ == "__main__":
     unum = 16239
@@ -250,9 +250,9 @@ if __name__ == "__main__":
     beta_b = 0.01
     reg_u = 1.0
     reg_v = 1.0
-    print 'train_rate: ', train_rate
-    print 'ratedim: ', ratedim, ' userdim: ', userdim, ' itemdim: ', itemdim
-    print 'max_steps: ', steps
-    print 'delta: ', delta, 'beta_e: ', beta_e, 'beta_h: ', beta_h, 'beta_p: ', beta_p, 'beta_w: ', beta_w, 'beta_b', beta_b, 'reg_u', reg_u, 'reg_v', reg_v
+    print('train_rate: ', train_rate)
+    print('ratedim: ', ratedim, ' userdim: ', userdim, ' itemdim: ', itemdim)
+    print('max_steps: ', steps)
+    print('delta: ', delta, 'beta_e: ', beta_e, 'beta_h: ', beta_h, 'beta_p: ', beta_p, 'beta_w: ', beta_w, 'beta_b', beta_b, 'reg_u', reg_u, 'reg_v', reg_v)
 
     HNERec(unum, inum, ratedim, userdim, itemdim, user_metapaths, item_metapaths, trainfile, testfile, steps, delta, beta_e, beta_h, beta_p, beta_w, beta_b, reg_u, reg_v)
